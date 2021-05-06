@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useContext } from 'react';
+import BookCard from '../components/BookCard';
+import { GlobalContext } from '../context/GlobalContext';
+import '../App.css';
 
-function App() {
+const HomePage = () => {
+  const { books, getBooks } = useContext(GlobalContext);
+
+  useEffect(() => {
+    getBooks();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id='home'>
+      <div className='row text-center'>
+        <div className='col'>
+          <h2>Home Page!</h2>
+        </div>
+      </div>
+      <div className='row'>
+        {books.map((book, i) => {
+          return (
+            <div className='col-sm-12 col-md-3 mb-3' key={i}>
+              <BookCard book={book} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
-}
+};
 
-export default App;
+export default HomePage;
